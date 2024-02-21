@@ -1,0 +1,10 @@
+<launch>
+<!-- Teacher 노드 실행시키기 -->
+<node name="teacher" pkg="sample" type="teacher_ta.py"/>
+
+<!-- Ta 노드 실행시키기 -->
+<node name="ta" pkg="sample" type="ta.py" output="screen"/>
+
+<!-- Student 노드 실행시키기 -->
+<node name="student" pkg="sample" type="student_ta.py" output="screen"/>
+</launch>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find door_control_gazebo)/urdf/door.xacro" />
+
+  <!-- Gazebo -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+  </include>
+
+  <!-- Spawn the door in Gazebo -->
+  <node name="spawn_door" pkg="gazebo_ros" type="spawn_model" args="-urdf -model door -param robot_description -x 0 -y 0 -z 0 -Y 0"/>
+
+  <!-- Start joint state publisher -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="/use_gui" value="true"/>
+  </node>
+
+  <!-- Start joint state controller -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="/door_controller" args="joint_state_controller">
+    <rosparam file="$(find door_control_gazebo)/config/door_controller.yaml"/>
+  </node>
+</launch>
+

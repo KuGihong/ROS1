@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot name="door">
+  <material name="grey">
+    <color rgba="0.7 0.7 0.7 1"/>
+  </material>
+
+  <link name="door_frame">
+    <visual>
+      <geometry>
+        <box size="0.1 1.0 2.0"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 1.0 2.0"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="door_hinge" type="revolute">
+    <origin xyz="0.0 0.0 1.0" rpy="0 0 0"/>
+    <parent link="door_frame"/>
+    <child link="door"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="door">
+    <visual>
+      <geometry>
+        <box size="0.1 0.02 0.5"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.02 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
+
